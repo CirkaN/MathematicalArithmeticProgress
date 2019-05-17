@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Arithmeyicc</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <script src="https://vuejs.org/js/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <form @submit.prevent="findDiffernce()">
+      <input type="text" name="numbers" v-model='numbers' placeholder="number [max 3]">
+      <input type="text" name="target" v-model='target' placeholder="target">
+      <input type="text" name="position" v-model='position' placeholder="position">
+      <button value="submit">Submit</button>
+    </form>
+    <p>Pozicija {{ finalNum }}</p>
+    <p>Suma {{ ukupanRezultat  }}</p>
+  </div>
+
+</body>
+
+<script>
+  new Vue({
+    el: "#app",
+    data() {
+      return {
+        diff: 0,
+        target: 0,
+        position: 0,
+        numbers: 0,
+        tempArray: [],
+        finalNum: 0,
+        ukupanRezultat: 0
+      }
+    },
+    methods: {
+      findDiffernce() {
+        var temp = new Array();
+        temp = this.numbers.split(",");
+        this.diff = Number(temp[0] - temp[1]);
+        for (i = 0; i <= this.target; i++) {
+          step1 = i - 1;
+          step2 = step1 * this.diff;
+          step3 = -step2 + Number(temp[0]);
+          this.tempArray.push(step3);
+          this.finalNum = step3;
+        }
+        this.sabiranje();
+      },
+      sabiranje() {
+        this.tempArray.forEach(n => {
+          this.ukupanRezultat += n;
+        })
+      }
+    }
+  });
+</script>
+
+</html>
