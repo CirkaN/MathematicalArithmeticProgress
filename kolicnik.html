@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Kolicnik</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script src="https://vuejs.org/js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <form @submit.prevent="findDiffernce()">
+            <input type="text" name="numbers" v-model='numbers' placeholder="number [max 3]">
+            <input type="text" name="target" v-model='target' placeholder="target">
+            <input type="text" name="position" v-model='position' placeholder="position">
+            <button value="submit">Submit</button>
+        </form>
+        <p>Kolicnik svih brojeva je {{ ukupno }}</p>
+        <p>Pozicija clana {{ numatpos }}</p>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                diff: 0,
+                target: 0,
+                position: 0,
+                numbers: 0,
+                tempArray: [],
+                finalNum: 0,
+                ukupanRezultat: 0,
+                value: 0,
+                ukupno: 0,
+                numatpos: 0
+            }
+        },
+        methods: {
+            findDiffernce() {
+                var temp = new Array();
+                temp = this.numbers.split(",");
+                this.diff = Number(temp[1] / temp[0]);
+                for (i = 1; i <= this.target; i++) {
+                    let naKvadrat = i - 1;
+                    let kolicnik = Math.pow(this.diff, naKvadrat);
+                    value = Number(temp[0]) * kolicnik;
+                    this.tempArray.push(value);
+                }
+                this.getNumberAtPosition(Number(this.position));
+                this.sumAllBitch();
+            },
+            getNumberAtPosition(position) {
+                this.numatpos = this.tempArray[--position]
+            },
+            sumAllBitch() {
+                let ukupno = 0;
+                for (i = 0; i < this.target; i++) {
+                    this.ukupno += this.tempArray[i];
+                }
+            }
+        },
+    });
+</script>
+
+</html>
